@@ -1,0 +1,44 @@
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.about-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    height: 100%;
+
+    gap: 4rem;
+
+    h2 {
+        position: relative;
+        font-size: 5rem;
+        font-weight: 700;
+        color: #000000;
+    }
+    .social {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        & a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        & svg,
+        & a {
+            color: #686868;
+            cursor: pointer;
+            font-size: 1.6rem;
+            font-weight: 500;
+
+            &:hover {
+                color: #000000;
+            }
+        }
+    }
+}

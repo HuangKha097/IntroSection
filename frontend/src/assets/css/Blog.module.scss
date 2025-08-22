@@ -1,0 +1,19 @@
+.blog-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    h2 {
+        font-size: 5rem;
+        font-weight: 700;
+        color: #000000;
+    }
+
+    .blog-list {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        padding: 1.5rem;
+        gap: 2rem;
+    }
+}

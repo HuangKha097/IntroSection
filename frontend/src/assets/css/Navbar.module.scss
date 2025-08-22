@@ -1,0 +1,122 @@
+.container {
+    width: 100%;
+    background-color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+
+    & .nav {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2rem 4rem;
+    }
+    & .nav-left {
+        display: flex;
+        align-items: center;
+        gap: 4rem;
+
+        & .nav-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        & .nav-list {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+
+            & li {
+                position: relative;
+                cursor: pointer;
+                color: #686868;
+                font-size: 1.8rem;
+                font-weight: 500;
+
+                display: flex;
+                align-items: center;
+                gap: 0.4rem; // tạo khoảng cách giữa text và svg
+            }
+            & svg {
+                color: #686868;
+            }
+            & :hover {
+                color: #000000;
+            }
+            & .nav-feature {
+                &:hover .sub-menu-active {
+                    display: flex;
+                }
+            }
+            & .nav-company {
+                &:hover .sub-menu-active {
+                    display: flex;
+                }
+            }
+        }
+
+        & .sub-menu {
+            /* Ẩn mặc định */
+            opacity: 0;
+            visibility: hidden;
+            position: absolute;
+            top: 180%;
+            right: 100%;
+            transform: translateX(100%);
+            display: flex;
+            flex-direction: column;
+            // white-space: nowrap => không xuống dòng
+            white-space: nowrap;
+            gap: 2rem;
+
+            padding: 1.8rem;
+            max-width: 20rem;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            background-color: white;
+
+            /* Transition: opacity chạy 0.3s, visibility delay 1.5s khi ẩn */
+            transition: opacity 0.3s ease, visibility 0s linear 1.5s;
+            & li {
+                display: flex;
+                align-items: center;
+                align-content: center;
+                gap: 1rem;
+            }
+        }
+
+        .nav-feature:hover .sub-menu,
+        .nav-company:hover .sub-menu {
+            opacity: 1;
+            visibility: visible;
+
+            /* Hiện ngay lập tức khi hover */
+            transition-delay: 0s;
+        }
+    }
+
+    & .nav-login {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        & button {
+            border: none;
+            background-color: transparent;
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: #686868;
+            cursor: pointer;
+
+            &:hover {
+                color: #000000;
+            }
+        }
+        & .btn-register {
+            padding: 0.5rem 1.2rem;
+            border: 2px solid rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+        }
+    }
+}
