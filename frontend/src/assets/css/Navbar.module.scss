@@ -118,5 +118,77 @@
             border: 2px solid rgba(0, 0, 0, 0.8);
             border-radius: 10px;
         }
+
+        & .user-info {
+            position: relative;
+            & .user-name {
+                font-size: 1.8rem;
+                font-weight: 500;
+                color: #000;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+                padding: 0.5rem 1.2rem;
+                border: 2px solid #686868;
+                border-radius: 10px;
+                width: 10rem;
+                overflow-x: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+
+                &:hover {
+                    color: #686868;
+                    border-color: rgba(0, 0, 0, 0.8);
+                }
+            }
+
+            & .user-menu {
+                /* Ẩn mặc định */
+                opacity: 0;
+                visibility: hidden;
+                position: absolute;
+                top: 140%;
+                right: 100%;
+                transform: translateX(100%);
+                display: flex;
+                flex-direction: column;
+                // white-space: nowrap => không xuống dòng
+                white-space: nowrap;
+                gap: 2rem;
+
+                padding: 2rem;
+                max-width: 20rem;
+                border-radius: 5px;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+                background-color: white;
+
+                /* Transition: opacity chạy 0.3s, visibility delay 1.5s khi ẩn */
+                transition: opacity 0.3s ease, visibility 0s linear 1.5s;
+
+                & li {
+                    display: flex;
+                    align-items: center;
+                    align-content: center;
+                    gap: 1rem;
+                    font-size: 1.8rem;
+                    font-weight: 500;
+                    color: #686868;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: #000000;
+                    }
+                }
+            }
+        }
+    }
+    .user-info:hover .user-menu {
+        opacity: 1;
+        visibility: visible;
+
+        /* Hiện ngay lập tức khi hover */
+        transition-delay: 0s;
     }
 }

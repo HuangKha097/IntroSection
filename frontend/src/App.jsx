@@ -1,16 +1,20 @@
+// App.jsx
 import React, { useState } from "react";
 import Navbar from "./components/Navbar";
+import Login from "./components/Login/Login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import Login from "./components/Login";
 import ToDoList from "./pages/ToDoList";
 import About from "./pages/About";
 import Blog from "./pages/Blog";
 import DetailBlog from "./pages/DetailBlog";
+import Profile from "./pages/Profile";
 import datablog from "./assets/data/blog.json";
+
 const App = () => {
     const [isOpenLogin, setIsOpenLogin] = useState(false);
     const [getBlogTitle, setBlogTitle] = useState("");
+
     const detailBlog = datablog.find(
         (item) =>
             item.title === getBlogTitle ||
@@ -18,19 +22,20 @@ const App = () => {
     );
 
     const handleOpenLogin = () => {
-        setIsOpenLogin(!isOpenLogin);
+        setIsOpenLogin((prev) => !prev); // toggle login popup
     };
 
     const handleGetBlogTitle = (title) => {
         setBlogTitle(title);
     };
-    console.log(getBlogTitle);
-    console.log(JSON.parse(localStorage.getItem("currentBlog")));
 
     return (
         <Router>
             <Navbar handleOpenLogin={handleOpenLogin} />
-            {isOpenLogin && <Login close={handleOpenLogin} />}
+
+            {/* ✅ render popup login khi state mở */}
+            {isOpenLogin && <Login handleClose={handleOpenLogin} />}
+
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/todo" element={<ToDoList />} />
@@ -43,6 +48,7 @@ const App = () => {
                     path="/blog/:id"
                     element={<DetailBlog props={detailBlog} />}
                 />
+                <Route path="/profile" element={<Profile />} />
             </Routes>
         </Router>
     );
