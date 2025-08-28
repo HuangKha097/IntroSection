@@ -2,6 +2,8 @@ const User = require("../models/UserModel");
 const bcrypt = require("bcrypt");
 const JwtService = require("./JwtService");
 
+const axios = require("axios");
+
 const createUser = async (newUser) => {
     try {
         const { name, email, password } = newUser;
@@ -104,7 +106,7 @@ const deleteUser = async (id) => {
         return {
             status: "OK",
             message: "Delete user successfully",
-            data: checkUser,
+            data: deleteUser,
         };
     } catch (error) {
         throw error;
@@ -138,6 +140,32 @@ const getUserById = async (id) => {
     }
 };
 
+const getWeather = async (city) => {
+    try {
+        // B1: gọi Geo API để lấy lat/lon trong VN
+        const geoResponse = await axios.get(
+            `http://api.openweathermap.org/geo/1.0/direct?q=${city},VN&limit=1&appid=${process.env.WEATHER_KEY}`
+        );
+
+        if (!geoResponse.data.length) {
+            throw new Error("City not found in Vietnam");
+        }
+
+        const { lat, lon, name } = geoResponse.data[0];
+
+        // B2: gọi Weather API với lat/lon
+        const weatherResponse = await axios.get(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.WEATHER_KEY}&units=metric`
+        );
+
+        return {
+            city: name,
+            ...weatherResponse.data,
+        };
+    } catch (error) {
+        throw error;
+    }
+};
 module.exports = {
     createUser,
     loginUser,
@@ -145,4 +173,5 @@ module.exports = {
     deleteUser,
     getAllUser,
     getUserById,
+    getWeather,
 };

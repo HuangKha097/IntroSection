@@ -24,6 +24,7 @@ const Login = ({ handleClose }) => {
         if (res?.data?.data) {
             dispatch(setUser({ user: res.data.data, accessToken: token }));
         }
+        console.log("res", res);
     };
 
     // xử lý login

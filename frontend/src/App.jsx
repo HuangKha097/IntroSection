@@ -5,6 +5,7 @@ import Login from "./components/Login/Login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import ToDoList from "./pages/ToDoList";
+import Weather from "./pages/Weather";
 import About from "./pages/About";
 import Blog from "./pages/Blog";
 import DetailBlog from "./pages/DetailBlog";
@@ -29,9 +30,18 @@ const App = () => {
         setBlogTitle(title);
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+        window.location.reload();
+    };
+
     return (
         <Router>
-            <Navbar handleOpenLogin={handleOpenLogin} />
+            <Navbar
+                handleOpenLogin={handleOpenLogin}
+                handleLogout={handleLogout}
+            />
 
             {/* ✅ render popup login khi state mở */}
             {isOpenLogin && <Login handleClose={handleOpenLogin} />}
@@ -39,6 +49,7 @@ const App = () => {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/todo" element={<ToDoList />} />
+                <Route path="/weather" element={<Weather />} />
                 <Route path="/about" element={<About />} />
                 <Route
                     path="/blogs"

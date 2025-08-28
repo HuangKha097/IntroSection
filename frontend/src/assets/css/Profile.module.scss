@@ -9,6 +9,7 @@
         flex-direction: column;
         gap: 2rem;
         padding: 4rem;
+        width: 50rem;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         border-radius: 10px;
 
@@ -35,6 +36,7 @@
             & input {
                 margin-top: 1rem;
                 width: 100%;
+                overflow: hidden;
                 font-family: "Epilogue", sans-serif;
                 padding: 1rem;
                 border: 1px solid #ccc;
@@ -62,8 +64,18 @@
                     color: #ffffff;
                 }
             }
+
+            & .profile-btn-group {
+                display: flex;
+                gap: 1rem;
+            }
+
             & .profile-btn-delete:hover {
                 background-color: rgb(166, 1, 1);
+                color: #ffffff;
+            }
+            & .profile-btn-save:hover {
+                background-color: #01910f;
                 color: #ffffff;
             }
         }

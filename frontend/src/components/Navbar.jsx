@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 const cx = classNames.bind(styles);
 
-const Navbar = ({ handleOpenLogin }) => {
+const Navbar = ({ handleOpenLogin, handleLogout }) => {
     // Lấy user từ redux
     const user = useSelector((state) => state.user.userInfo);
     console.log("user", user);
@@ -51,7 +51,9 @@ const Navbar = ({ handleOpenLogin }) => {
                                 <Link to="/todo">
                                     <li>Todo List</li>
                                 </Link>
-                                <li>Calendar</li>
+                                <Link to="/weather">
+                                    <li>Weather</li>
+                                </Link>
                                 <li>Reminders</li>
                                 <li>Planning</li>
                             </ul>
@@ -100,7 +102,9 @@ const Navbar = ({ handleOpenLogin }) => {
                                 <Link to="/profile">
                                     <li className={cx("profile")}>Profile</li>
                                 </Link>
-                                <li className={cx("logout")}>Logout</li>
+                                <Link to="/" onClick={handleLogout}>
+                                    <li className={cx("logout")}>Logout</li>
+                                </Link>
                             </ul>
                         </div>
                     ) : (

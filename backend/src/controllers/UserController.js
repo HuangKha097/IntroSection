@@ -1,5 +1,8 @@
 const UserService = require("../services/UserService");
 const JwtService = require("../services/JwtService");
+const { getWeather } = require("../services/UserService");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const createUser = async (req, res) => {
     try {
@@ -21,7 +24,11 @@ const createUser = async (req, res) => {
                 .json({ status: "ERR", message: "Password does not match" });
         }
 
-        const result = await UserService.createUser({ name, email, password });
+        const result = await UserService.createUser({
+            name,
+            email,
+            password,
+        });
         return res.status(201).json({ status: "OK", data: result });
     } catch (error) {
         return res.status(500).json({ status: "ERR", message: error.message });
@@ -83,22 +90,19 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     try {
         const useId = req.params.id;
-        const token = req.headers;
-        console.log("token", token);
-
         if (!useId) {
             return res
                 .status(400)
                 .json({ status: "ERR", message: "The user id is required" });
         }
-        const data = req.body;
-        if (!data) {
-            return res
-                .status(400)
-                .json({ status: "ERR", message: "The input is required" });
-        }
+        // const data = req.body;
+        // if (!data) {
+        //     return res
+        //         .status(400)
+        //         .json({ status: "ERR", message: "The input is required" });
+        // }
 
-        const result = await UserService.deleteUser(useId, data);
+        const result = await UserService.deleteUser(useId);
         return res.status(201).json({ status: "OK", data: result });
     } catch (error) {
         return res.status(500).json({ status: "ERR", message: error.message });
@@ -147,6 +151,30 @@ const refreshToken = async (req, res) => {
         return res.status(500).json({ status: "ERR", message: error.message });
     }
 };
+
+const getWeatherController = async (req, res) => {
+    try {
+        const city = req.params.city; // lấy từ path param
+        const weatherData = await getWeather(city);
+
+        return res.status(200).json({
+            status: "OK",
+            message: "Get weather successfully",
+            location: { city, country: "VN" },
+            data: weatherData,
+        });
+    } catch (error) {
+        console.error(
+            "Error fetching weather:",
+            error.response?.data || error.message
+        );
+        return res.status(500).json({
+            status: "ERROR",
+            message: error.message,
+        });
+    }
+};
+
 module.exports = {
     createUser,
     loginUser,
@@ -155,4 +183,5 @@ module.exports = {
     getAllUser,
     getUserById,
     refreshToken,
+    getWeatherController,
 };

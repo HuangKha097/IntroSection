@@ -17,4 +17,5 @@ router.get(
     userController.getUserById
 );
 router.post("/refresh-token", userController.refreshToken);
+router.get("/weather/:city", userController.getWeatherController);
 module.exports = router;
