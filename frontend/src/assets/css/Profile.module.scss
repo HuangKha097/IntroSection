@@ -10,6 +10,7 @@
         gap: 2rem;
         padding: 4rem;
         width: 50rem;
+        height: 100%;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         border-radius: 10px;
 
@@ -44,6 +45,34 @@
                 font-size: 1.6rem;
                 font-weight: 500;
                 margin-bottom: 2rem;
+            }
+            & .profile-image-wrapper {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+
+                & .profile-image {
+                    width: 10rem;
+                    height: 10rem;
+                    object-fit: cover;
+                    border-radius: 50%;
+                }
+                & .profile-image-input {
+                    display: none;
+                }
+                & .change-avatar {
+                    display: inline-block;
+                    margin-top: 5px;
+                    font-size: 14px;
+                    color: #686868;
+                    cursor: pointer;
+                    text-decoration: underline;
+
+                    &:hover {
+                        color: #000000;
+                    }
+                }
             }
         }
 

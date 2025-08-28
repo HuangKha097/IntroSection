@@ -8,6 +8,7 @@ const cx = classNames.bind(styles);
 
 const Navbar = ({ handleOpenLogin, handleLogout }) => {
     // Lấy user từ redux
+
     const user = useSelector((state) => state.user.userInfo);
     console.log("user", user);
 
@@ -95,9 +96,12 @@ const Navbar = ({ handleOpenLogin, handleLogout }) => {
                 <div className={cx("nav-login")}>
                     {user ? (
                         <div className={cx("user-info")}>
-                            <span className={cx("user-name")}>
-                                {user.data.name}
-                            </span>
+                            <img
+                                src={user?.data.avatar}
+                                alt="user-avatar"
+                                className={cx("user-avatar")}
+                            />
+
                             <ul className={cx("user-menu")}>
                                 <Link to="/profile">
                                     <li className={cx("profile")}>Profile</li>

@@ -14,6 +14,7 @@ const Profile = () => {
 
     const user = useSelector((state) => state.user.userInfo);
     const [isUpdate, setIsUpdate] = useState(false);
+    const [file, setFile] = useState(null);
 
     const handleUpdate = () => {
         setIsUpdate((prev) => !prev);
@@ -35,6 +36,21 @@ const Profile = () => {
         email: user?.data.email || "",
         password: user?.data.password || "",
     });
+
+    const handleSetAvatar = (e) => {
+        const selectedFile = e.target.files[0];
+        if (selectedFile) {
+            const reader = new FileReader();
+            reader.readAsDataURL(selectedFile);
+            reader.onload = () => {
+                setFile(reader.result);
+                setForm((prev) => ({
+                    ...prev,
+                    avatar: reader.result, // cập nhật avatar vào form
+                }));
+            };
+        }
+    };
 
     const handleUpdateUser = async (id, values) => {
         try {
@@ -67,17 +83,32 @@ const Profile = () => {
                 <div className={cx("profile-wrapper")}>
                     <h2>Profile</h2>
                     <form action="" className={cx("profile-form")}>
-                        <img src="" alt="" className={cx("profile-image")} />
-                        <label htmlFor="avatar">
+                        <div className={cx("profile-image-wrapper")}>
+                            <img
+                                src={
+                                    form.avatar ||
+                                    "https://via.placeholder.com/150"
+                                }
+                                alt="avatar"
+                                className={cx("profile-image")}
+                            />
+
                             <input
+                                id="avatar"
                                 name="avatar"
                                 accept="image/*"
                                 type="file"
-                                className={cx("profile-input")}
+                                className={cx("profile-image-input")}
                                 disabled={!isUpdate}
-                                onChange={handleChange}
+                                onChange={(e) => handleSetAvatar(e)}
                             />
-                        </label>
+                            <label
+                                htmlFor="avatar"
+                                className={cx("change-avatar")}
+                            >
+                                Change avatar
+                            </label>
+                        </div>
                         <label htmlFor="username">
                             Username
                             <input
